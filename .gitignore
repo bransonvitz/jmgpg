@@ -1,0 +1,11 @@
+# Ensure this file isn't ignored
+!.gitignore
+# Ignore directories and files with these extensions
+*.swp
+*.class
+*.jmx
+*.asc
+*.log
+# Ignore these specific directories and files
+.DS_Store
+gpg-plugin-*.jar
