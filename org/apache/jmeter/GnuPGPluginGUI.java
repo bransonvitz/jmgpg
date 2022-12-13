@@ -43,9 +43,10 @@ import org.apache.jmeter.GnuPGPlugin;
 public class GnuPGPluginGUI extends AbstractConfigGui {
 	private static final Logger LOG = LoggerFactory.getLogger(GnuPGPluginGUI.class);
 
-	private final JTextField url = new JTextField();
-	private final JTextField fileName = new JTextField();
-	private final JTextField loc = new JTextField();
+	private final JTextField ifn = new JTextField();
+	private final JTextField ofn = new JTextField();
+	private final JTextField ifl = new JTextField();
+	private final JTextField ofl = new JTextField();
 	private final JCheckBox remove = new JCheckBox("Remove asset(s) after test completion", false);
 
 	public GnuPGPluginGUI() {
@@ -60,41 +61,51 @@ public class GnuPGPluginGUI extends AbstractConfigGui {
 		panel.setBorder(BorderFactory.createTitledBorder("Configure the asset to decrypt"));
 		GroupLayout layout = new GroupLayout(panel);
 		panel.setLayout(layout);
-	//	JLabel urlLabel = new JLabel("Location:");
-		JLabel fileNameLabel = new JLabel("File name (when decrypted, without .asc extension):");
-		JLabel locLabel = new JLabel("Location (absolute or relative path to output directory):");
+		JLabel ifnLabel = new JLabel("Input file name:");
+		JLabel ofnLabel = new JLabel("Output file name:");
+		JLabel iflLabel = new JLabel("Input path:");
+		JLabel oflLabel = new JLabel("Output path:");
 		layout.setHorizontalGroup(
 			layout.createParallelGroup(Alignment.LEADING)
-			//	.addGroup(layout.createSequentialGroup()
-			//	.addComponent(urlLabel)
-			//	.addPreferredGap(ComponentPlacement.RELATED)
-			//	.addComponent(url))
 				.addGroup(layout.createSequentialGroup()
-				.addComponent(fileNameLabel)
+				.addComponent(ifnLabel)
 				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(fileName))
+				.addComponent(ifn))
 				.addGroup(layout.createSequentialGroup()
-				.addComponent(locLabel)
+				.addComponent(iflLabel)
 				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(loc))
+				.addComponent(ifl))
+				.addGroup(layout.createSequentialGroup()
+				.addComponent(ofnLabel)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(ofn))
+				.addGroup(layout.createSequentialGroup()
+				.addComponent(oflLabel)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(ofl))
 				.addGroup(layout.createSequentialGroup()
 				.addComponent(remove))); 
 		layout.setVerticalGroup(
 			layout.createSequentialGroup()
-			//	.addGroup(layout.createParallelGroup(Alignment.LEADING)
-			//	.addComponent(	urlLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
-			//						GroupLayout.PREFERRED_SIZE)
-			//	.addComponent(	url, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
-			//						GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createParallelGroup(Alignment.LEADING)
-				.addComponent(	fileNameLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+				.addComponent(	ifnLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
 									GroupLayout.PREFERRED_SIZE)
-				.addComponent(	fileName, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+				.addComponent(	ifn, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
 									GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createParallelGroup(Alignment.LEADING)
-				.addComponent(	locLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+				.addComponent(	iflLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
 									GroupLayout.PREFERRED_SIZE)
-				.addComponent(	loc, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+				.addComponent(	ifl, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+									GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createParallelGroup(Alignment.LEADING)
+				.addComponent(	ofnLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+									GroupLayout.PREFERRED_SIZE)
+				.addComponent(	ofn, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+									GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createParallelGroup(Alignment.LEADING)
+				.addComponent(	oflLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+									GroupLayout.PREFERRED_SIZE)
+				.addComponent(	ofl, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
 									GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createParallelGroup(Alignment.LEADING)
 				.addComponent(	remove, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
@@ -123,9 +134,10 @@ public class GnuPGPluginGUI extends AbstractConfigGui {
 	public void modifyTestElement(TestElement c) {
 		if (c instanceof GnuPGPlugin) {
 			GnuPGPlugin element = (GnuPGPlugin)c;
-			element.setURL(url.getText());
-			element.setFileName(fileName.getText());
-			element.setLoc(loc.getText());
+			element.setIFN(ifn.getText());
+			element.setIFL(ifl.getText());
+			element.setOFN(ofn.getText());
+			element.setOFL(ofl.getText());
 			element.setRemove(remove.isSelected());
 		}
 		super.configureTestElement(c);
@@ -135,18 +147,20 @@ public class GnuPGPluginGUI extends AbstractConfigGui {
 	public void configure(TestElement testelement) {
 		super.configure(testelement);
 		GnuPGPlugin element = (GnuPGPlugin)testelement;
-		url.setText(element.getURL());
-		fileName.setText(element.getFileName());
-		loc.setText(element.getLoc());
+		ifn.setText(element.getIFN());
+		ifl.setText(element.getIFL());
+		ofn.setText(element.getOFN());
+		ofl.setText(element.getOFL());
 		remove.setSelected(element.getRemove());
 	}
 
 	@Override
 	public void clearGui() {
 		super.clearGui();
-		url.setText("");
-		fileName.setText("");
-		loc.setText("");
+		ifn.setText("");
+		ifl.setText("");
+		ofn.setText("");
+		ofl.setText("");
 		remove.setSelected(false);
 	}
 }

@@ -6,8 +6,8 @@ This is a GnuPG plugin for Apache JMeter.
 	environment that JMeter will be running in
 -	A password-less GnuPG key, with `ultimate` trusted status, in the keychain
 	of the login that JMeter will be running as
--	Asset files encrypted for that key, with ascii-armoring enabled, named
-	following a pattern like: `assetname`.`anyextension`.asc, and located in
+-	Asset file(s) encrypted for that key, with ascii-armoring enabled, named
+	following a pattern like: `assetname`.`extension`.asc, and located in
 	the working directory that JMeter will be running under
 
 # Usage
@@ -35,24 +35,26 @@ keyring in a working environment with GnuPG installed.
 
 The asset file, named `credentials.json`, should be encrypted like:
 ```
-gpg --encrypt --ascii-armor --output credentials.json.asc -r thekey@address.com credentials.json
+gpg --encrypt --armor --output credentials.json.asc -r thekey@address.com credentials.json
 ```
 
-... this will create a file named `credentials.json.asc`.
+... this will create a file named `credentials.json.asc`, which is what should
+be present for JMeter to use at execution time.
 
 When the `GnuPG` configuration item is added to the JMeter test plan, the
-file name field should be set to `credentials.json`, as the `.asc` will be
+file name field should be set to `credentials.json` ... the `.asc` will be
 internally added at decryption time.
 
 # Building
 
-# Pre-requisites
+## Pre-requisites
 -	Apache JMeter
 -	The OpenJDK jdk, version >= 8, ideally matching JMeter's pre-requisite
 -	Adjustment of the `Makefile` to suit local filesystem and version details
 
+## Compilation
 After verifying the list of JMeter JAR versions in the Makefile's `LCP`
-variable, make is used to build the JAR file in the current directory:
+variable, `make` is used to build the JAR file in the current directory:
 ```
 make
 ```
