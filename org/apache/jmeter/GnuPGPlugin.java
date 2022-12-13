@@ -91,7 +91,7 @@ public class GnuPGPlugin extends AbstractTestElement implements TestStateListene
 		String sOFL = getOFL();
 		String fileName = sIFN;
 		if (fileName.equals("") || fileName.equals(null)) {
-			fileName = sOFN+".asc"
+			fileName = sOFN+".asc";
 		}
 		File inputFile	= (sIFL.equals("") || sIFL.equals(null))
 							? new File(fileName)
