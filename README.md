@@ -1,7 +1,7 @@
 # Introduction
 This is a GnuPG plugin for Apache JMeter.
 
-# Required ...
+## Prerequisites
 -	A GnuPG installation with the `gpg` command in the execution path of the
 	environment that JMeter will be running in
 -	A password-less GnuPG key, with `ultimate` trusted status, in the keychain
@@ -15,15 +15,12 @@ A configuration item of this plugin's `GnuPG` type can be added into the test
 plan for each asset (file) that will need to be decrypted.  Decryption will
 take place at test launch, before any of the test's threads start.
 
-The properties of an item are fairly self-explanatory.  Remember to align the
-respective naming of the asset file(s), as the plugin will conform to these
-practices:
+The properties of an item are fairly self-explanatory, with the respective
+path fields being optional.
 
--	An asset file will be encrypted with ascii-armoring enabled
--	An asset file will be named with an extension of `.asc`
--	The GnuPG plugin element will be configured with a file name value that
-	omits the `.asc` extension, which will be added internally at decryption
-	time.
+It is also possible to specify only the output file name, in which case the
+input file name will be implied as `outputfile.name`.asc and assumed to be
+encrypted with ascii-armoring enabled.
 
 # Example
 Consider the scenario where a file named `credentials.json` is to be encrypted
@@ -42,12 +39,14 @@ gpg --encrypt --armor --output credentials.json.asc -r thekey@address.com creden
 be present for JMeter to use at execution time.
 
 When the `GnuPG` configuration item is added to the JMeter test plan, the
-file name field should be set to `credentials.json` ... the `.asc` will be
-internally added at decryption time.
+output file name field could be set to `credentials.json`, and the `.asc`
+would be implied and internally added to input file name at decryption time.
+
+Alternately, an explicit input file name could also be specified.
 
 # Building
 
-## Pre-requisites
+## Prerequisites
 -	Apache JMeter
 -	The OpenJDK jdk, version >= 8, ideally matching JMeter's pre-requisite
 -	Adjustment of the `Makefile` to suit local filesystem and version details

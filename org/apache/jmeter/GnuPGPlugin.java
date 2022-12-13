@@ -110,7 +110,7 @@ public class GnuPGPlugin extends AbstractTestElement implements TestStateListene
 					args.add("bash");
 					args.add("-c");
 				}
-				args.add("gpg --decrypt --output "+sOutputFile+" "+sOFN+".asc");
+				args.add("gpg --decrypt --output "+sOutputFile+" "+inputFile.getAbsolutePath());
 				ProcessBuilder cmd = new ProcessBuilder(args);
 			//	LOG.info("Home: {}",sHome);
 			//	cmd.directory(new File(sHome));
