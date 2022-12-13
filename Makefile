@@ -15,7 +15,7 @@
 #  You should have received a copy of the
 #  GNU General Public License along with this software.
 #  If not, see <http://www.gnu.org/licenses>.
-VER = 0.1.0
+VER = 1.0.0
 JAR = gpg-plugin-$(VER).jar
 
 JMH = $(HOME)/jmeter
